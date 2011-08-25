@@ -1,0 +1,11 @@
+/* block myaccount */
+#left_column div.myaccount, #right_column div.myaccount { background: #F1F2F4 url('../../../img/block_footer_myaccount.jpg') no-repeat bottom left }
+div.myaccount h4 { background: #FAC67D url('../../../img/block_header_myaccount.jpg') no-repeat top left }
+div.myaccount h4 a, div.myaccount h4 { color: #000 }
+div.myaccount ul.bullet { margin-top: 0.6em }
+div.myaccount ul.bullet .icon { display: none }
+div.myaccount p.logout { padding: 0.3em 0 0.3em 2em }
+div.myaccount p.logout a { text-decoration: underline }
+div.myaccount p.logout a:hover { text-decoration: none }
+div.myaccount .block_content { background: #F1F2F4 url('../../../img/block_bg_myaccount.jpg') repeat-x bottom left; border-left: 1px solid #F1F2F4; border-right: 1px solid #F1F2F4 }
+.account_input { margin-left: 0; width: 15em }
