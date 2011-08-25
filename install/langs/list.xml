@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<languages>
+
+	<lang id="0" label="Русский (Russian)" trad_file="/../langs/ru.php" >
+		<flags>
+			<url>../img/l/2.jpg</url>
+		</flags>
+		<isos>
+			<iso>ru</iso>
+		</isos>
+		<idLangPS>ru</idLangPS>
+	</lang>
+
+	<lang id="1" label="English" trad_file="/../langs/us.php">
+		<flags>
+			<url>../img/l/1.jpg</url>
+		</flags>
+		<isos>
+			<iso>en-us</iso>
+		</isos>
+		<idLangPS>en</idLangPS>
+	</lang>
+
+</languages>
