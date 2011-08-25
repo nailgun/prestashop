@@ -49,6 +49,12 @@ class Gsitemap extends Module
 		if (!defined('GSITEMAP_FILE'))
 			define('GSITEMAP_FILE', dirname(__FILE__).'/../../sitemap.xml');
 	}
+	
+	public function install()
+	{
+		Configuration::updateValue('PS_GSITEMAP_SECURE_KEY', strtoupper(Tools::passwdGen(16)));
+		return parent::install();
+	}
 
 	public function uninstall()
 	{
@@ -78,6 +84,99 @@ class Gsitemap extends Module
 	{
 		Configuration::updateValue('GSITEMAP_ALL_CMS', (int)Tools::getValue('GSITEMAP_ALL_CMS'));
 		Configuration::updateValue('GSITEMAP_ALL_PRODUCTS', (int)Tools::getValue('GSITEMAP_ALL_PRODUCTS'));
+		
+		$this->cronTask();
+
+		$res = file_exists(GSITEMAP_FILE);
+		$this->_html .= '<h3 class="'. ($res ? 'conf confirm' : 'alert error') .'" style="margin-bottom: 20px">';
+		$this->_html .= $res ? $this->l('Sitemap file generated') : $this->l('Error while creating sitemap file');
+		$this->_html .= '</h3>';
+	}
+	
+	private function _addSitemapNode($xml, $loc, $priority, $change_freq, $last_mod = NULL)
+	{		
+		$sitemap = $xml->addChild('url');
+		$sitemap->addChild('loc', $loc);
+		$sitemap->addChild('priority',  $priority);
+		if ($last_mod)
+			$sitemap->addChild('lastmod', $last_mod);
+		$sitemap->addChild('changefreq', $change_freq);
+		return $sitemap;
+	}
+	
+	private function _addSitemapNodeImage($xml, $product)
+	{
+		$link = new Link();	
+		$image = $xml->addChild('image', null, 'http://www.google.com/schemas/sitemap-image/1.1');
+		$image->addChild('loc', $link->getImageLink($product['link_rewrite'], (int)$product['id_product'].'-'.(int)$product['id_image']), 'http://www.google.com/schemas/sitemap-image/1.1');
+		
+		$legend_image = preg_replace('/(&+)/i', '&amp;', $product['legend_image']);
+		$image->addChild('caption', $legend_image, 'http://www.google.com/schemas/sitemap-image/1.1');
+		$image->addChild('title', $legend_image, 'http://www.google.com/schemas/sitemap-image/1.1');
+	}
+
+    private function _displaySitemap()
+    {
+        if (file_exists(GSITEMAP_FILE) AND filesize(GSITEMAP_FILE))
+        {			
+            $fp = fopen(GSITEMAP_FILE, 'r');
+            $fstat = fstat($fp);
+            fclose($fp);
+            $xml = simplexml_load_file(GSITEMAP_FILE);
+			
+            $nbPages = sizeof($xml->url);
+
+            $this->_html .= '<p>'.$this->l('Your Google sitemap file is online at the following address:').'<br />
+            <a href="'.Tools::getShopDomain(true, true).__PS_BASE_URI__.'sitemap.xml" target="_blank"><b>'.Tools::getShopDomain(true, true).__PS_BASE_URI__.'sitemap.xml</b></a></p><br />';
+
+            $this->_html .= $this->l('Update:').' <b>'.utf8_encode(strftime('%A %d %B %Y %H:%M:%S',$fstat['mtime'])).'</b><br />';
+            $this->_html .= $this->l('Filesize:').' <b>'.number_format(($fstat['size']*.000001), 3).'MB</b><br />';
+            $this->_html .= $this->l('Indexed pages:').' <b>'.$nbPages.'</b><br /><br />';
+        }
+    }
+
+	private function _displayForm()
+	{
+		$this->_html .=
+		'<form action="'.Tools::htmlentitiesUTF8($_SERVER['REQUEST_URI']).'" method="post">
+			<div style="margin:0 0 20px 0;">
+				<input type="checkbox" name="GSITEMAP_ALL_PRODUCTS" id="GSITEMAP_ALL_PRODUCTS" style="vertical-align: middle;" value="1" '.(Configuration::get('GSITEMAP_ALL_PRODUCTS') ? 'checked="checked"' : '').' /> <label class="t" for="GSITEMAP_ALL_PRODUCTS">'.$this->l('Sitemap also includes products from inactive categories').'</label>
+			</div>
+			<div style="margin:0 0 20px 0;">
+				<input type="checkbox" name="GSITEMAP_ALL_CMS" id="GSITEMAP_ALL_CMS" style="vertical-align: middle;" value="1" '.(Configuration::get('GSITEMAP_ALL_CMS') ? 'checked="checked"' : '').' /> <label class="t" for="GSITEMAP_ALL_CMS">'.$this->l('Sitemap also includes CMS pages which are not in a CMS block').'</label>
+			</div>
+			<input name="btnSubmit" class="button" type="submit"
+			value="'.((!file_exists(GSITEMAP_FILE)) ? $this->l('Generate sitemap file') : $this->l('Update sitemap file')).'" />
+		</form>';
+	}
+	
+	public function getContent()
+	{
+		$this->_html .= '<h2>'.$this->l('Search Engine Optimization').'</h2>
+		'.$this->l('See').' <a href="https://www.google.com/webmasters/tools/docs/en/about.html" style="font-weight:bold;text-decoration:underline;" target="_blank">
+		'.$this->l('this page').'</a> '.$this->l('for more information').'<br /><br />';
+
+		$this->_html .= $this->l('Place this URL in crontab or call it manually daily:').'<br />
+		<b>'.Tools::getShopDomain(true, true).__PS_BASE_URI__.'modules/gsitemap/cron.php?secure_key='.Configuration::get('PS_GSITEMAP_SECURE_KEY').'</b><br /><br />';
+
+		if (Tools::isSubmit('btnSubmit'))
+		{
+			$this->_postValidation();
+			if (!sizeof($this->_postErrors))
+				$this->_postProcess();
+			else
+				foreach ($this->_postErrors AS $err)
+					$this->_html .= '<div class="alert error">'.$err.'</div>';
+		}
+
+		$this->_displaySitemap();
+		$this->_displayForm();
+
+		return $this->_html;
+	}
+
+	public function cronTask()
+	{
 		$link = new Link();
 		$langs = Language::getLanguages();
 				
@@ -143,7 +242,7 @@ XML;
 			
 			$tmpLink = Configuration::get('PS_REWRITING_SETTINGS') ? $link->getCategoryLink((int)$category['id_category'], $category['link_rewrite'], (int)$category['id_lang']) : $link->getCategoryLink((int)$category['id_category']);	
 			$this->_addSitemapNode($xml, htmlspecialchars($tmpLink), $priority, 'weekly', substr($category['date_upd'], 0, 10));
-      }
+		}
 
 		$products = Db::getInstance(_PS_USE_SQL_SLAVE_)->ExecuteS('
 		SELECT p.id_product, pl.link_rewrite, DATE_FORMAT(IF(date_upd,date_upd,date_add), \'%Y-%m-%d\') date_upd, pl.id_lang, cl.`link_rewrite` category, ean13, i.id_image, il.legend legend_image, (
@@ -201,93 +300,10 @@ XML;
 			foreach($pages AS $page => $ssl)
 				$this->_addSitemapNode($xml, $link->getPageLink($page.'.php', $ssl), '0.5', 'monthly');
 
-        $xmlString = $xml->asXML();
+		$xmlString = $xml->asXML();
 		
-        $fp = fopen(GSITEMAP_FILE, 'w');
-        fwrite($fp, $xmlString);
-        fclose($fp);
-
-        $res = file_exists(GSITEMAP_FILE);
-        $this->_html .= '<h3 class="'. ($res ? 'conf confirm' : 'alert error') .'" style="margin-bottom: 20px">';
-        $this->_html .= $res ? $this->l('Sitemap file generated') : $this->l('Error while creating sitemap file');
-        $this->_html .= '</h3>';
-    }
-	
-	private function _addSitemapNode($xml, $loc, $priority, $change_freq, $last_mod = NULL)
-	{		
-		$sitemap = $xml->addChild('url');
-		$sitemap->addChild('loc', $loc);
-		$sitemap->addChild('priority',  $priority);
-		if ($last_mod)
-			$sitemap->addChild('lastmod', $last_mod);
-		$sitemap->addChild('changefreq', $change_freq);
-		return $sitemap;
-	}
-	
-	private function _addSitemapNodeImage($xml, $product)
-	{
-		$link = new Link();	
-		$image = $xml->addChild('image', null, 'http://www.google.com/schemas/sitemap-image/1.1');
-		$image->addChild('loc', $link->getImageLink($product['link_rewrite'], (int)$product['id_product'].'-'.(int)$product['id_image']), 'http://www.google.com/schemas/sitemap-image/1.1');
-		
-		$legend_image = preg_replace('/(&+)/i', '&amp;', $product['legend_image']);
-		$image->addChild('caption', $legend_image, 'http://www.google.com/schemas/sitemap-image/1.1');
-		$image->addChild('title', $legend_image, 'http://www.google.com/schemas/sitemap-image/1.1');
-	}
-
-    private function _displaySitemap()
-    {
-        if (file_exists(GSITEMAP_FILE) AND filesize(GSITEMAP_FILE))
-        {			
-            $fp = fopen(GSITEMAP_FILE, 'r');
-            $fstat = fstat($fp);
-            fclose($fp);
-            $xml = simplexml_load_file(GSITEMAP_FILE);
-			
-            $nbPages = sizeof($xml->url);
-
-            $this->_html .= '<p>'.$this->l('Your Google sitemap file is online at the following address:').'<br />
-            <a href="'.Tools::getShopDomain(true, true).__PS_BASE_URI__.'sitemap.xml" target="_blank"><b>'.Tools::getShopDomain(true, true).__PS_BASE_URI__.'sitemap.xml</b></a></p><br />';
-
-            $this->_html .= $this->l('Update:').' <b>'.utf8_encode(strftime('%A %d %B %Y %H:%M:%S',$fstat['mtime'])).'</b><br />';
-            $this->_html .= $this->l('Filesize:').' <b>'.number_format(($fstat['size']*.000001), 3).'MB</b><br />';
-            $this->_html .= $this->l('Indexed pages:').' <b>'.$nbPages.'</b><br /><br />';
-        }
-    }
-
-	private function _displayForm()
-	{
-		$this->_html .=
-		'<form action="'.Tools::htmlentitiesUTF8($_SERVER['REQUEST_URI']).'" method="post">
-			<div style="margin:0 0 20px 0;">
-				<input type="checkbox" name="GSITEMAP_ALL_PRODUCTS" id="GSITEMAP_ALL_PRODUCTS" style="vertical-align: middle;" value="1" '.(Configuration::get('GSITEMAP_ALL_PRODUCTS') ? 'checked="checked"' : '').' /> <label class="t" for="GSITEMAP_ALL_PRODUCTS">'.$this->l('Sitemap also includes products from inactive categories').'</label>
-			</div>
-			<div style="margin:0 0 20px 0;">
-				<input type="checkbox" name="GSITEMAP_ALL_CMS" id="GSITEMAP_ALL_CMS" style="vertical-align: middle;" value="1" '.(Configuration::get('GSITEMAP_ALL_CMS') ? 'checked="checked"' : '').' /> <label class="t" for="GSITEMAP_ALL_CMS">'.$this->l('Sitemap also includes CMS pages which are not in a CMS block').'</label>
-			</div>
-			<input name="btnSubmit" class="button" type="submit"
-			value="'.((!file_exists(GSITEMAP_FILE)) ? $this->l('Generate sitemap file') : $this->l('Update sitemap file')).'" />
-		</form>';
-	}
-	
-	public function getContent()
-	{
-		$this->_html .= '<h2>'.$this->l('Search Engine Optimization').'</h2>
-		'.$this->l('See').' <a href="https://www.google.com/webmasters/tools/docs/en/about.html" style="font-weight:bold;text-decoration:underline;" target="_blank">
-		'.$this->l('this page').'</a> '.$this->l('for more information').'<br /><br />';
-		if (Tools::isSubmit('btnSubmit'))
-		{
-			$this->_postValidation();
-			if (!sizeof($this->_postErrors))
-				$this->_postProcess();
-			else
-				foreach ($this->_postErrors AS $err)
-					$this->_html .= '<div class="alert error">'.$err.'</div>';
-		}
-
-		$this->_displaySitemap();
-		$this->_displayForm();
-
-		return $this->_html;
+		$fp = fopen(GSITEMAP_FILE, 'w');
+		fwrite($fp, $xmlString);
+		fclose($fp);
 	}
 }
