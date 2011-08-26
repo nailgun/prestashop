@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+	<name>yamarket</name>
+	<displayName><![CDATA[Yandex.Market]]></displayName>
+	<version><![CDATA[0.1]]></version>
+	<description><![CDATA[Generate YML file for Yandex.Market]]></description>
+	<author><![CDATA[Dmitry Bashkatov]]></author>
+	<tab><![CDATA[market_place]]></tab>
+	<is_configurable>1</is_configurable>
+	<need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+</module>
