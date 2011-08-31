@@ -198,12 +198,12 @@ XML;
         $offers_node = $shop_node->addChild('offers');
 
 		$products = Db::getInstance(_PS_USE_SQL_SLAVE_)->ExecuteS('
-		SELECT p.id_product, pl.link_rewrite, pl.name, cl.link_rewrite category_link_rewrite, pl.ean13, i.id_image,
+		SELECT p.id_product, pl.link_rewrite, pl.name, cl.link_rewrite category_link_rewrite, p.ean13, i.id_image
 		FROM '._DB_PREFIX_.'product p
 		LEFT JOIN '._DB_PREFIX_.'product_lang pl ON (p.id_product = pl.id_product)
         LEFT JOIN '._DB_PREFIX_.'category_lang cl ON (p.id_category_default = cl.id_category)
-		LEFT JOIN '._DB_PREFIX_.'image i ON p.id_product = i.id_product
-		WHERE p.active = 1 AND pl.id_lang = '.$id_lang.' AND cl.id_lang = '.$id_lang.'
+		LEFT JOIN '._DB_PREFIX_.'image i ON (p.id_product = i.id_product)
+		WHERE p.active = 1 AND pl.id_lang = '.$id_lang.' AND cl.id_lang = '.$id_lang.' AND i.cover = 1
 		ORDER BY p.id_product ASC');
 
 		foreach($products as $product) {
