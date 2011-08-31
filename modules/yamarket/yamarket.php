@@ -198,7 +198,8 @@ XML;
         $offers_node = $shop_node->addChild('offers');
 
 		$products = Db::getInstance(_PS_USE_SQL_SLAVE_)->ExecuteS('
-		SELECT p.id_product, pl.link_rewrite, pl.name, cl.link_rewrite category_link_rewrite, p.ean13, i.id_image
+        SELECT p.id_product, pl.link_rewrite, pl.name, cl.link_rewrite category_link_rewrite,
+            p.ean13, i.id_image, p.price, p.category_default, pl.description
 		FROM '._DB_PREFIX_.'product p
 		LEFT JOIN '._DB_PREFIX_.'product_lang pl ON (p.id_product = pl.id_product)
         LEFT JOIN '._DB_PREFIX_.'category_lang cl ON (p.id_category_default = cl.id_category)
@@ -207,12 +208,37 @@ XML;
 		ORDER BY p.id_product ASC');
 
 		foreach($products as $product) {
-			if (($priority = 0.7 - ($product['level_depth'] / 10)) < 0.1)
-				$priority = 0.1;
+            $offer_node = $offers_node->addChild('offer', $category['name']);
+            $offer_node->addAttribute('id', $product['id_product']);
+            $offer_node->addAttribute('type', 'vendor.model');
+            # TODO:
+            $offer_node->addAttribute('available', 'true');
 
-			$tmpLink = $link->getProductLink((int)($product['id_product']), $product['link_rewrite'], $product['category'], $product['ean13'], (int)($product['id_lang']));
-			$sitemap = $this->_addSitemapNode($xml, htmlspecialchars($tmpLink), $priority, 'weekly', substr($product['date_upd'], 0, 10));
-			$sitemap = $this->_addSitemapNodeImage($sitemap, $product);
+			$tmpLink = $link->getProductLink((int)($product['id_product']), $product['link_rewrite'], $product['category_link_rewrite'], $product['ean13'], $id_lang);
+            $offer_node->addChild('url', $tmpLink);
+
+            $offer_node->addChild('price', $product['price']);
+            # TODO:
+            $offer_node->addChild('currencyId', 'RUR');
+            $offer_node->addChild('categoryId', $product['category_default']);
+
+            $tmpLink = $link->getImageLink($product['link_rewrite'], (int)$product['id_product'].'-'.(int)$product['id_image']);
+            $offer_node->addChild('picture', $tmpLink);
+
+            # TODO:
+            $offer_node->addChild('delivery', 'true');
+            # TODO:
+            #$offer_node->addChild('local_delivery_cost', );
+            # TODO:
+            #$offer_node->addChild('typePrefix', );
+            # TODO:
+            #$offer_node->addChild('vendor', );
+            #$offer_node->addChild('vendorCode', );
+            #$offer_node->addChild('model', );
+            $offer_node->addChild('description', $product['description']);
+            # TODO:
+            #$offer_node->addChild('manufacturer_warranty', );
+            #$offer_node->addChild('country_of_origin', );
 		}
 
 		$xmlString = $xml->asXML();
