@@ -273,16 +273,12 @@ XML;
 		
 		/* Add classic pages (contact, best sales, new products...) */
 		$pages = array(
-			'authentication' => true, 
 			'best-sales' => false, 
 			'contact-form' => true, 
-			'discount' => false, 
-			'index' => false, 
 			'manufacturer' => false, 
 			'new-products' => false, 
 			'prices-drop' => false, 
-			'supplier' => false, 
-			'store' => false);
+			'supplier' => false);
 		
 		// Don't show suppliers and manufacturers if they are disallowed
 		if (!Module::getInstanceByName('blockmanufacturer')->id && !Configuration::get('PS_DISPLAY_SUPPLIERS'))
