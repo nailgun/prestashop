@@ -230,7 +230,7 @@ class AdminCategories extends AdminTab
 		foreach ($this->_languages AS $language)
 			echo '
 					<div class="lang_'.$language['id_lang'].'" style="display: '.($language['id_lang'] == $this->_defaultFormLanguage ? 'block' : 'none').'; float: left;">
-						<textarea name="description_'.$language['id_lang'].'" rows="10" cols="100">'.htmlentities($this->getFieldValue($obj, 'description', (int)($language['id_lang'])), ENT_COMPAT, 'UTF-8').'</textarea>
+						<textarea class="rte" name="description_'.$language['id_lang'].'" rows="20" cols="100">'.htmlentities(stripslashes($this->getFieldValue($obj, 'description', (int)($language['id_lang']))), ENT_COMPAT, 'UTF-8').'</textarea>
 					</div>';
 		echo '	<p class="clear"></p>
 				</div>
@@ -315,5 +315,22 @@ class AdminCategories extends AdminTab
 			</fieldset>
 		</form>
 		<p class="clear"></p>';
+			// TinyMCE
+		global $cookie;
+		$iso = Language::getIsoById((int)($cookie->id_lang));
+		$isoTinyMCE = (file_exists(_PS_ROOT_DIR_.'/js/tiny_mce/langs/'.$iso.'.js') ? $iso : 'en');
+		$ad = dirname($_SERVER["PHP_SELF"]);
+		echo '
+			<script type="text/javascript">
+			var iso = \''.$isoTinyMCE.'\' ;
+			var pathCSS = \''._THEME_CSS_DIR_.'\' ;
+			var ad = \''.$ad.'\' ;
+			</script>
+			<script type="text/javascript" src="'.__PS_BASE_URI__.'js/tiny_mce/tiny_mce.js"></script>
+			<script type="text/javascript" src="'.__PS_BASE_URI__.'js/tinymce.inc.js"></script>
+			<script type="text/javascript">
+					toggleVirtualProduct(getE(\'is_virtual_good\'));
+					unitPriceWithTax(\'unit\');
+			</script>';
 	}
 }

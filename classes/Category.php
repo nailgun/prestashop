@@ -85,7 +85,7 @@ class CategoryCore extends ObjectModel
  	protected 	$fieldsValidate = array('nleft' => 'isUnsignedInt', 'nright' => 'isUnsignedInt', 'level_depth' => 'isUnsignedInt', 'active' => 'isBool', 'id_parent' => 'isUnsignedInt', 'groupBox' => 'isArrayWithIds');
 	protected 	$fieldsRequiredLang = array('name', 'link_rewrite');
  	protected 	$fieldsSizeLang = array('name' => 64, 'link_rewrite' => 64, 'meta_title' => 128, 'meta_description' => 255, 'meta_keywords' => 255);
- 	protected 	$fieldsValidateLang = array('name' => 'isCatalogName', 'link_rewrite' => 'isLinkRewrite', 'description' => 'isCleanHtml',
+ 	protected 	$fieldsValidateLang = array('name' => 'isCatalogName', 'link_rewrite' => 'isLinkRewrite', 'description' => 'isString',
 											'meta_title' => 'isGenericName', 'meta_description' => 'isGenericName', 'meta_keywords' => 'isGenericName');
 
 	protected 	$table = 'category';
@@ -138,8 +138,31 @@ class CategoryCore extends ObjectModel
 	  */
 	public function getTranslationsFieldsChild()
 	{
-		parent::validateFieldsLang();
-		return parent::getTranslationsFields(array('name', 'description', 'link_rewrite', 'meta_title', 'meta_keywords', 'meta_description'));
+        $fieldsArray = array('name', 'link_rewrite', 'meta_title', 'meta_keywords', 'meta_description');
+        $fields = array();
+        $languages = Language::getLanguages();
+        $defaultLanguage = Configuration::get('PS_LANG_DEFAULT');
+        foreach ($languages as $language) {
+            $fields[$language['id_lang']]['id_lang'] = $language['id_lang'];
+            $fields[$language['id_lang']][$this->identifier] = intval($this->id);
+            if (isset($this->description[$language['id_lang']]))
+                $fields[$language['id_lang']]['description'] = Tools::htmlentitiesDecodeUTF8(pSQL($this->description[$language['id_lang']], true));
+            else
+                $fields[$language['id_lang']]['description'] = '';
+            foreach ($fieldsArray as $field) {
+                if (!Validate::isTableOrIdentifier($field))
+                    die(Tools::displayError());
+
+                /* Check fields validity */
+                if (isset($this->{$field}[$language['id_lang']]) AND !empty($this->{$field}[$language['id_lang']]))
+                    $fields[$language['id_lang']][$field] = pSQL($this->{$field}[$language['id_lang']]);
+                elseif (in_array($field, $this->fieldsRequiredLang))
+                    $fields[$language['id_lang']][$field] = pSQL($this->{$field}[$defaultLanguage]);
+                else
+                    $fields[$language['id_lang']][$field] = '';
+            }
+        }
+        return $fields;
 	}
 
 	public	function add($autodate = true, $nullValues = false)

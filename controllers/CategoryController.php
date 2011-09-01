@@ -117,7 +117,7 @@ class CategoryControllerCore extends FrontController
 					self::$smarty->assign('largeSceneImageType', isset($largeSceneImageType) ? $largeSceneImageType : NULL);
 				}
 
-				$this->category->description = nl2br2($this->category->description);
+				$this->category->description = $this->category->description;
 				$subCategories = $this->category->getSubCategories((int)(self::$cookie->id_lang));
 				self::$smarty->assign('category', $this->category);	
 				

@@ -52,7 +52,7 @@
 		{/if}
 
 		{if $category->description}
-			<div class="cat_desc">{$category->description}</div>
+			<div class="rte">{$category->description}</div>
 		{/if}
 		{if isset($subcategories)}
 		<!-- Subcategories -->
