@@ -1,1 +1,3 @@
 .*.swp
+/tools/smarty/compile/*.file.*.php
+/config/settings.inc.php
