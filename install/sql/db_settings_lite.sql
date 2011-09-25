@@ -220,34 +220,34 @@ INSERT INTO `PREFIX_category_lang` (`id_category`, `id_lang`, `name`, `descripti
 (1, 1, 'Home', '', 'home', NULL, NULL, NULL),(1, 2, 'Главная', '', 'home', NULL, NULL, NULL);
 
 INSERT INTO `PREFIX_order_state` (`id_order_state`, `invoice`, `send_email`, `color`, `unremovable`, `logable`, `delivery`) VALUES
-(1, 0, 1, 'lightblue', 1, 0, 0),(2, 1, 1, '#DDEEFF', 1, 1, 0),(3, 1, 1, '#FFDD99', 1, 1, 1),(4, 1, 1, '#EEDDFF', 1, 1, 1),(5, 1, 0, '#DDFFAA', 1, 1, 1),
-(6, 0, 1, '#DADADA', 1, 0, 0),(7, 1, 1, '#FFFFBB', 1, 0, 0),(8, 0, 1, '#FFDFDF', 1, 0, 0),(9, 1, 1, '#FFD3D3', 1, 0, 0),(10, 0, 1, 'lightblue', 1, 0, 0),(11, 0, 0, 'lightblue', 1, 0, 0),(12, 0, 0, 'lightblue', 1, 0, 0);
+(1,0,0,'#ffffff',1,0,0,0),(2,1,0,'#cfffcc',1,0,1,0),(3,1,0,'#c0c8ff',1,0,0,1),(4,1,1,'#EEDDFF',1,0,1,1),(5,1,1,'#fffec0',1,0,1,1),
+(6,0,1,'#DADADA',1,0,0,0),(7,1,1,'#FFFFBB',1,0,1,0),(8,0,0,'#ffffff',1,0,0,0),(9,1,1,'#FFD3D3',1,0,0,0),(10,0,0,'#ffffff',1,0,0,0),(11,0,0,'#ffffff',1,0,0,0),(12,0,0,'#ffffff',1,0,0,0);
 
 INSERT INTO `PREFIX_order_state_lang` (`id_order_state`, `id_lang`, `name`, `template`) VALUES
-(1, 1, 'Awaiting cheque payment', 'cheque'),
-(2, 1, 'Payment accepted', 'payment'),
-(3, 1, 'Preparation in progress', 'preparation'),
-(4, 1, 'Shipped', 'shipped'),
-(5, 1, 'Delivered', ''),
-(6, 1, 'Canceled', 'order_canceled'),
-(7, 1, 'Refund', 'refund'),
-(8, 1, 'Payment error', 'payment_error'),
-(9, 1, 'On backorder', 'outofstock'),
-(10, 1, 'Awaiting bank wire payment', 'bankwire'),
-(11, 1, 'Awaiting PayPal payment', ''),
-(12, 1, 'Payment remotely accepted', ''),
-(1, 2, 'Ждем оплату по чеку', 'cheque'),
-(2, 2, 'Оплата получена', 'payment'),
-(3, 2, 'Заказ принят', 'preparation'),
-(4, 2, 'Отправлен', 'shipped'),
-(5, 2, 'Доставлен', ''),
-(6, 2, 'Отменен', 'order_canceled'),
-(7, 2, 'Возврат', 'refund'),
-(8, 2, 'Ошибка оплаты', 'payment_error'),
-(9, 2, 'Товар закончился', 'outofstock'),
-(10, 2, 'Ждем оплату (банковский платеж)', 'bankwire'),
-(11, 2, 'Ждем оплату (PayPal)', ''),
-(12, 2, 'Оплата удаленно принята', '');
+(1,1,'--',''),
+(2,1,'* Delivered and paid',''),
+(3,1,'* Processing',''),
+(4,1,'Order shipped','shipped'),
+(5,1,'Order recieved','preparation'),
+(6,1,'Order cancelled','order_canceled'),
+(7,1,'Payment recieved','payment'),
+(8,1,'--',''),
+(9,1,'On backorder','outofstock'),
+(10,1,'--',''),
+(11,1,'--',''),
+(12,1,'--',''),
+(1,2,'--',''),
+(2,2,'* Доставлен и оплачен',''),
+(3,2,'* Обрабатывается',''),
+(4,2,'Заказ отправлен','shipped'),
+(5,2,'Заказ принят','preparation'),
+(6,2,'Заказ отменен','order_canceled'),
+(7,2,'Оплата получена','payment'),
+(8,2,'--',''),
+(9,2,'Товар закончился','outofstock'),
+(10,2,'--',''),
+(11,2,'--',''),
+(12,2,'--','');
 
 INSERT INTO `PREFIX_zone` (`id_zone`, `name`, `active`) VALUES
 (1, 'Европа', 1),(2, 'Соединенные штаты (Америка)', 1),(3, 'Азия', 1),(4, 'Африка', 1),
