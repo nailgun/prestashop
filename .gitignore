@@ -1,4 +1,7 @@
 .*.swp
-/tools/smarty/compile/*.file.*.php
 /config/settings.inc.php
+/tools/smarty/compile/*
 /img/tmp/*
+/cache/cachefs/*
+/themes/*/cache/*
+/tools/smarty/cache/*
