@@ -5,3 +5,4 @@
 /cache/cachefs/*
 /themes/*/cache/*
 /tools/smarty/cache/*
+/log/*

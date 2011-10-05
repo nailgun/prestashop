@@ -220,8 +220,8 @@ INSERT INTO `PREFIX_category_lang` (`id_category`, `id_lang`, `name`, `descripti
 (1, 1, 'Home', '', 'home', NULL, NULL, NULL),(1, 2, 'Главная', '', 'home', NULL, NULL, NULL);
 
 INSERT INTO `PREFIX_order_state` (`id_order_state`, `invoice`, `send_email`, `color`, `unremovable`, `logable`, `delivery`) VALUES
-(1,0,0,'#ffffff',1,0,0,0),(2,1,0,'#cfffcc',1,0,1,0),(3,1,0,'#c0c8ff',1,0,0,1),(4,1,1,'#EEDDFF',1,0,1,1),(5,1,1,'#fffec0',1,0,1,1),
-(6,0,1,'#DADADA',1,0,0,0),(7,1,1,'#FFFFBB',1,0,1,0),(8,0,0,'#ffffff',1,0,0,0),(9,1,1,'#FFD3D3',1,0,0,0),(10,0,0,'#ffffff',1,0,0,0),(11,0,0,'#ffffff',1,0,0,0),(12,0,0,'#ffffff',1,0,0,0);
+(1,0,0,'#ffffff',1,0,0),(2,1,0,'#cfffcc',1,1,0),(3,1,0,'#c0c8ff',1,0,1),(4,1,1,'#EEDDFF',1,1,1),(5,1,1,'#fffec0',1,1,1),
+(6,0,1,'#DADADA',1,0,0),(7,1,1,'#FFFFBB',1,1,0),(8,0,0,'#ffffff',1,0,0),(9,1,1,'#FFD3D3',1,0,0),(10,0,0,'#ffffff',1,0,0),(11,0,0,'#ffffff',1,0,0),(12,0,0,'#ffffff',1,0,0);
 
 INSERT INTO `PREFIX_order_state_lang` (`id_order_state`, `id_lang`, `name`, `template`) VALUES
 (1,1,'--',''),
