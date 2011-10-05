@@ -266,7 +266,7 @@ $(function(){ldelim}
 						</p>
 						{elseif $field_name eq "phone"}
 						<p class="text">
-							<label for="phone">{l s='Phone'}</label>
+							<label for="phone">{l s='Mobile phone'}</label>
 							<input type="text" class="text" name="phone" id="phone" value="{if isset($smarty.post.phone)}{$smarty.post.phone}{/if}"> <sup style="color:red;">*</sup>
 						</p>
 						{/if}
@@ -473,12 +473,8 @@ $(function(){ldelim}
 		</p>
 		<p style="margin-left:50px;">{l s='You must register at least one phone number'} <sup style="color:red;">*</sup></p>
 		<p class="text">
-			<label for="phone">{l s='Home phone'}</label>
+			<label for="phone">{l s='Mobile phone'}</label>
 			<input type="text" class="text" name="phone" id="phone" value="{if isset($smarty.post.phone)}{$smarty.post.phone}{/if}" />
-		</p>
-		<p class="text">
-			<label for="phone_mobile">{l s='Mobile phone'}</label>
-			<input type="text" class="text" name="phone_mobile" id="phone_mobile" value="{if isset($smarty.post.phone_mobile)}{$smarty.post.phone_mobile}{/if}" />
 		</p>
 		<p class="required text" id="address_alias">
 			<label for="alias">{l s='Assign an address title for future reference'} </label>

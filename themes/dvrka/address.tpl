@@ -258,12 +258,8 @@ $(function(){ldelim}
 		</p>
 		<p style="margin-left:50px;">{l s='You must register at least one phone number'} <sup style="color:red;">*</sup></p>
 		<p class="text">
-			<label for="phone">{l s='Home phone'}</label>
+			<label for="phone">{l s='Mobile phone'}</label>
 			<input type="text" id="phone" name="phone" value="{if isset($smarty.post.phone)}{$smarty.post.phone}{else}{if isset($address->phone)}{$address->phone|escape:'htmlall':'UTF-8'}{/if}{/if}" />
-		</p>
-		<p class="text">
-			<label for="phone_mobile">{l s='Mobile phone'}</label>
-			<input type="text" id="phone_mobile" name="phone_mobile" value="{if isset($smarty.post.phone_mobile)}{$smarty.post.phone_mobile}{else}{if isset($address->phone_mobile)}{$address->phone_mobile|escape:'htmlall':'UTF-8'}{/if}{/if}" />
 		</p>
 		<p class="required text" id="address_alias">
 			<label for="alias">{l s='Assign an address title for future reference'}</label>

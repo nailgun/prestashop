@@ -279,12 +279,8 @@
 					<textarea name="other" id="other" cols="26" rows="3"></textarea>
 				</p>
 				<p class="text">
-					<label for="phone">{l s='Home phone'}</label>
+					<label for="phone">{l s='Mobile phone'}</label>
 					<input type="text" class="text" name="phone" id="phone" value="{if isset($guestInformations) && $guestInformations.phone}{$guestInformations.phone}{/if}" /> <sup>*</sup>
-				</p>
-				<p class="text is_customer_param">
-					<label for="phone_mobile">{l s='Mobile phone'}</label>
-					<input type="text" class="text" name="phone_mobile" id="phone_mobile" value="" />
 				</p>
 				<input type="hidden" name="alias" id="alias" value="{l s='My address'}" />
 
@@ -386,12 +382,8 @@
 						<textarea name="other_invoice" id="other_invoice" cols="26" rows="3"></textarea>
 					</p>
 					<p class="text">
-						<label for="phone_invoice">{l s='Home phone'}</label>
+						<label for="phone_invoice">{l s='Mobile phone'}</label>
 						<input type="text" class="text" name="phone_invoice" id="phone_invoice" value="" /> <sup>*</sup>
-					</p>
-					<p class="text is_customer_param">
-						<label for="phone_mobile_invoice">{l s='Mobile phone'}</label>
-						<input type="text" class="text" name="phone_mobile_invoice" id="phone_mobile_invoice" value="" />
 					</p>
 					<input type="hidden" name="alias_invoice" id="alias_invoice" value="{l s='My Invoice address'}" />
 				</div>
