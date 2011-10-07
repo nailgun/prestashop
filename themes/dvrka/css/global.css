@@ -307,7 +307,10 @@ body.mceContentBody {
 .rte ol, .mceContentBody ul, div.rte ol, .mceContentBody ul { padding-left: 2em }
 .rte ul, .mceContentBody ul {
 	list-style-type: square;
-	margin-left: 10px
+	margin-left: 15px
+}
+.rte ul li, .mceContentBody ul li {
+    margin-bottom: 0.4em;
 }
 .rte strong, .mceContentBody strong { font-weight: bold }
 .rte em, .mceContentBody em { font-style: italic }
