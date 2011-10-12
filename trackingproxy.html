@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Отслеживание почтовых отправлений</title>
+    </head>
+    <body>
+        <div id="status">
+            Соединение с сервером отслеживания почтовых отправлений. Пожалуйста подождите...
+        </div>
+
+        <div style="display: none">
+            <form id="form" action="http://www.russianpost.ru/resp_engine.aspx?Path=rp/servise/ru/home/postuslug/trackingpo" method="post">
+                <input type="hidden" name="searchsign" value="1" />
+                <input id="track_code" type="text" name="BarCode" />
+                <input type="submit" />
+            </form>
+        </div>
+
+        <script type="text/javascript">
+        if (window.location.hash) {
+            var trackingCode = window.location.hash.slice(1);
+            document.getElementById('track_code').value = trackingCode;
+            document.getElementById('form').submit();
+        } else {
+            document.getElementById('status').innerHTML = 'Ошибка.'
+        }
+        </script>
+    </body>
+</html>
