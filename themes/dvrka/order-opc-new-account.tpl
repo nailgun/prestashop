@@ -137,13 +137,6 @@
 					<sup>*</sup>
 					<span class="form_info">{l s='(5 characters min.)'}</span>
 				</p>
-				<p class="radio required">
-					<span>{l s='Title'}</span>
-					<input type="radio" name="id_gender" id="id_gender1" value="1" {if isset($guestInformations) && $guestInformations.id_gender == 1}checked="checked"{/if} />
-					<label for="id_gender1" class="top">{l s='Mr.'}</label>
-					<input type="radio" name="id_gender" id="id_gender2" value="2" {if isset($guestInformations) && $guestInformations.id_gender == 2}checked="checked"{/if} />
-					<label for="id_gender2" class="top">{l s='Ms.'}</label>
-				</p>
 				<p class="required text">
 					<label for="firstname">{l s='First name'}</label>
 					<input type="text" class="text" id="customer_firstname" name="customer_firstname" onblur="$('#firstname').val($(this).val());" value="{if isset($guestInformations) && $guestInformations.customer_firstname}{$guestInformations.customer_firstname}{/if}" />
@@ -153,41 +146,6 @@
 					<label for="lastname">{l s='Last name'}</label>
 					<input type="text" class="text" id="customer_lastname" name="customer_lastname" onblur="$('#lastname').val($(this).val());" value="{if isset($guestInformations) && $guestInformations.customer_lastname}{$guestInformations.customer_lastname}{/if}" />
 					<sup>*</sup>
-				</p>
-				<p class="select">
-					<span>{l s='Date of Birth'}</span>
-					<select id="days" name="days">
-						<option value="">-</option>
-						{foreach from=$days item=day}
-							<option value="{$day|escape:'htmlall':'UTF-8'}" {if isset($guestInformations) && ($guestInformations.sl_day == $day)} selected="selected"{/if}>{$day|escape:'htmlall':'UTF-8'}&nbsp;&nbsp;</option>
-						{/foreach}
-					</select>
-					{*
-						{l s='January'}
-						{l s='February'}
-						{l s='March'}
-						{l s='April'}
-						{l s='May'}
-						{l s='June'}
-						{l s='July'}
-						{l s='August'}
-						{l s='September'}
-						{l s='October'}
-						{l s='November'}
-						{l s='December'}
-					*}
-					<select id="months" name="months">
-						<option value="">-</option>
-						{foreach from=$months key=k item=month}
-							<option value="{$k|escape:'htmlall':'UTF-8'}" {if isset($guestInformations) && ($guestInformations.sl_month == $k)} selected="selected"{/if}>{l s="$month"}&nbsp;</option>
-						{/foreach}
-					</select>
-					<select id="years" name="years">
-						<option value="">-</option>
-						{foreach from=$years item=year}
-							<option value="{$year|escape:'htmlall':'UTF-8'}" {if isset($guestInformations) && ($guestInformations.sl_year == $year)} selected="selected"{/if}>{$year|escape:'htmlall':'UTF-8'}&nbsp;&nbsp;</option>
-						{/foreach}
-					</select>
 				</p>
 				{if isset($newsletter) && $newsletter}
 				<p class="checkbox">

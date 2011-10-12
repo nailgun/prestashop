@@ -143,14 +143,7 @@ $(function(){ldelim}
 						<input type="text" class="text" id="guest_email" name="guest_email" value="{if isset($smarty.post.guest_email)}{$smarty.post.guest_email}{/if}">
 						<sup>*</sup>
 					</p>
-					<p class="radio required">
-						<span>{l s='Title'}</span>
-						<input type="radio" name="id_gender" id="id_gender1" value="1" {if isset($smarty.post.id_gender) && $smarty.post.id_gender == '1'}checked="checked"{/if}>
-						<label for="id_gender1" class="top">{l s='Mr.'}</label>
-						<input type="radio" name="id_gender" id="id_gender2" value="2" {if isset($smarty.post.id_gender) && $smarty.post.id_gender == '2'}checked="checked"{/if}>
-						<label for="id_gender2" class="top">{l s='Ms.'}</label>
-					</p>
-										<p class="required text">
+                    <p class="required text">
 						<label for="firstname">{l s='First name'}</label>
 						<input type="text" class="text" id="firstname" name="firstname" onblur="$('#customer_firstname').val($(this).val());" value="{if isset($smarty.post.firstname)}{$smarty.post.firstname}{/if}">
 						<input type="hidden" class="text" id="customer_firstname" name="customer_firstname" value="{if isset($smarty.post.firstname)}{$smarty.post.firstname}{/if}">
@@ -161,41 +154,6 @@ $(function(){ldelim}
 						<input type="text" class="text" id="lastname" name="lastname" onblur="$('#customer_lastname').val($(this).val());" value="{if isset($smarty.post.lastname)}{$smarty.post.lastname}{/if}">
 						<input type="hidden" class="text" id="customer_lastname" name="customer_lastname" value="{if isset($smarty.post.lastname)}{$smarty.post.lastname}{/if}">
 						<sup>*</sup>
-					</p>
-					<p class="select">
-						<span>{l s='Date of Birth'}</span>
-						<select id="days" name="days">
-							<option value="">-</option>
-							{foreach from=$days item=day}
-								<option value="{$day|escape:'htmlall':'UTF-8'}" {if ($sl_day == $day)} selected="selected"{/if}>{$day|escape:'htmlall':'UTF-8'}&nbsp;&nbsp;</option>
-							{/foreach}
-						</select>
-						{*
-							{l s='January'}
-							{l s='February'}
-							{l s='March'}
-							{l s='April'}
-							{l s='May'}
-							{l s='June'}
-							{l s='July'}
-							{l s='August'}
-							{l s='September'}
-							{l s='October'}
-							{l s='November'}
-							{l s='December'}
-						*}
-						<select id="months" name="months">
-							<option value="">-</option>
-							{foreach from=$months key=k item=month}
-								<option value="{$k|escape:'htmlall':'UTF-8'}" {if ($sl_month == $k)} selected="selected"{/if}>{l s="$month"}&nbsp;</option>
-							{/foreach}
-						</select>
-						<select id="years" name="years">
-							<option value="">-</option>
-							{foreach from=$years item=year}
-								<option value="{$year|escape:'htmlall':'UTF-8'}" {if ($sl_year == $year)} selected="selected"{/if}>{$year|escape:'htmlall':'UTF-8'}&nbsp;&nbsp;</option>
-							{/foreach}
-						</select>
 					</p>
 					{if isset($newsletter) && $newsletter}
 						<p class="checkbox">
@@ -306,13 +264,6 @@ $(function(){ldelim}
 	{$HOOK_CREATE_ACCOUNT_TOP}
 	<fieldset class="account_creation">
 		<h3>{l s='Your personal information'}</h3>
-		<p class="radio required">
-			<span>{l s='Title'}</span>
-			<input type="radio" name="id_gender" id="id_gender1" value="1" {if isset($smarty.post.id_gender) && $smarty.post.id_gender == 1}checked="checked"{/if} />
-			<label for="id_gender1" class="top">{l s='Mr.'}</label>
-			<input type="radio" name="id_gender" id="id_gender2" value="2" {if isset($smarty.post.id_gender) && $smarty.post.id_gender == 2}checked="checked"{/if} />
-			<label for="id_gender2" class="top">{l s='Ms.'}</label>
-		</p>
 		<p class="required text">
 			<label for="customer_firstname">{l s='First name'}</label>
 			<input onkeyup="$('#firstname').val(this.value);" type="text" class="text" id="customer_firstname" name="customer_firstname" value="{if isset($smarty.post.customer_firstname)}{$smarty.post.customer_firstname}{/if}" />
@@ -333,41 +284,6 @@ $(function(){ldelim}
 			<input type="password" class="text" name="passwd" id="passwd" />
 			<sup>*</sup>
 			<span class="form_info">{l s='(5 characters min.)'}</span>
-		</p>
-		<p class="select">
-			<span>{l s='Date of Birth'}</span>
-			<select id="days" name="days">
-				<option value="">-</option>
-				{foreach from=$days item=day}
-					<option value="{$day|escape:'htmlall':'UTF-8'}" {if ($sl_day == $day)} selected="selected"{/if}>{$day|escape:'htmlall':'UTF-8'}&nbsp;&nbsp;</option>
-				{/foreach}
-			</select>
-			{*
-				{l s='January'}
-				{l s='February'}
-				{l s='March'}
-				{l s='April'}
-				{l s='May'}
-				{l s='June'}
-				{l s='July'}
-				{l s='August'}
-				{l s='September'}
-				{l s='October'}
-				{l s='November'}
-				{l s='December'}
-			*}
-			<select id="months" name="months">
-				<option value="">-</option>
-				{foreach from=$months key=k item=month}
-					<option value="{$k|escape:'htmlall':'UTF-8'}" {if ($sl_month == $k)} selected="selected"{/if}>{l s="$month"}&nbsp;</option>
-				{/foreach}
-			</select>
-			<select id="years" name="years">
-				<option value="">-</option>
-				{foreach from=$years item=year}
-					<option value="{$year|escape:'htmlall':'UTF-8'}" {if ($sl_year == $year)} selected="selected"{/if}>{$year|escape:'htmlall':'UTF-8'}&nbsp;&nbsp;</option>
-				{/foreach}
-			</select>
 		</p>
 		{if isset($newsletter) && $newsletter}
 		<p class="checkbox" >

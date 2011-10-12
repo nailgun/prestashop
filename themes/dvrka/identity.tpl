@@ -47,13 +47,6 @@
 	<p class="required"><sup>*</sup>{l s='Required field'}</p>
 	<form action="{$link->getPageLink('identity.php', true)}" method="post" class="std">
 		<fieldset>
-			<p class="radio">
-				<span>{l s='Title'}</span>
-				<input type="radio" id="id_gender1" name="id_gender" value="1" {if $smarty.post.id_gender == 1 OR !$smarty.post.id_gender}checked="checked"{/if} />
-				<label for="id_gender1">{l s='Mr.'}</label>
-				<input type="radio" id="id_gender2" name="id_gender" value="2" {if $smarty.post.id_gender == 2}checked="checked"{/if} />
-				<label for="id_gender2">{l s='Ms.'}</label>
-			</p>
 			<p class="required text">
 				<label for="firstname">{l s='First name'}</label>
 				<input type="text" id="firstname" name="firstname" value="{$smarty.post.firstname}" /> <sup>*</sup>
@@ -77,41 +70,6 @@
 			<p class="password">
 				<label for="confirmation">{l s='Confirmation'}</label>
 				<input type="password" name="confirmation" id="confirmation" />
-			</p>
-			<p class="select">
-				<label>{l s='Date of Birth'}</label>
-				<select name="days" id="days">
-					<option value="">-</option>
-					{foreach from=$days item=v}
-						<option value="{$v|escape:'htmlall':'UTF-8'}" {if ($sl_day == $v)}selected="selected"{/if}>{$v|escape:'htmlall':'UTF-8'}&nbsp;&nbsp;</option>
-					{/foreach}
-				</select>
-				{*
-					{l s='January'}
-					{l s='February'}
-					{l s='March'}
-					{l s='April'}
-					{l s='May'}
-					{l s='June'}
-					{l s='July'}
-					{l s='August'}
-					{l s='September'}
-					{l s='October'}
-					{l s='November'}
-					{l s='December'}
-				*}
-				<select id="months" name="months">
-					<option value="">-</option>
-					{foreach from=$months key=k item=v}
-						<option value="{$k|escape:'htmlall':'UTF-8'}" {if ($sl_month == $k)}selected="selected"{/if}>{l s="$v"}&nbsp;</option>
-					{/foreach}
-				</select>
-				<select id="years" name="years">
-					<option value="">-</option>
-					{foreach from=$years item=v}
-						<option value="{$v|escape:'htmlall':'UTF-8'}" {if ($sl_year == $v)}selected="selected"{/if}>{$v|escape:'htmlall':'UTF-8'}&nbsp;&nbsp;</option>
-					{/foreach}
-				</select>
 			</p>
 			{if $newsletter}
 			<p class="checkbox">
