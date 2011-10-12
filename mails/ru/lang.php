@@ -9,6 +9,7 @@ $_LANGMAIL['New credit slip regarding your order #'] = 'Новые кредит�
 $_LANGMAIL['Virtual product to download'] = 'Виртуальный товар для загрузки';
 $_LANGMAIL[' \'Fwd: Customer message\''] = '';
 $_LANGMAIL[' ((is_array($_LANGMAIL) AND key_exists($subject'] = '';
+$_LANGMAIL['Package in transit'] = 'Код отправления';
 $_LANGMAIL['Order confirmation'] = 'Ваш заказ обрабатывается';
 $_LANGMAIL['Message from a customer'] = 'Сообщение от посетителя';
 $_LANGMAIL['New message regarding your order'] = '';
