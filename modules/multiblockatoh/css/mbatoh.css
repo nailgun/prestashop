@@ -1,0 +1,66 @@
+/*
+  Copyright (C) 2011 by phrasespot
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  THE SOFTWARE.
+*/
+/* form fields */
+div#multiblockatoh label {padding:0;width:9em;text-align:left;}
+div#multiblockatoh .field-help {margin:0 0 0 11.4em;clear:both;color:#7F7F7F;padding:0.5em 0 0 0;}
+div#multiblockatoh select {width:14.5em;}
+/* flags */
+div#multiblockatoh #languages_block_body_wrapper {font-size:0.8em;}
+div#multiblockatoh .defaultlanguage {float:left;display:block;}
+div#multiblockatoh .otherlanguage{float:left;display:none;}
+/* included blocks */
+div#multiblockatoh #side-includes{float:right;padding:11px 0 0 5px}
+div#multiblockatoh #donation,
+div#multiblockatoh #contact,
+div#multiblockatoh #other-modules {background-color:#fff;border:1px solid #ccc;width:220px;margin:0 0 2px;padding:5px 5px 2px 5px;}
+div#multiblockatoh input.paypal-submit {padding:0.5em 0;}
+div#multiblockatoh #contact,
+div#multiblockatoh #other-modules {clear:both;margin-top:0;}
+div#multiblockatoh #other-modules ul {list-style-type:square;padding-left:1em;}
+/* expand/collapse */
+div#multiblockatoh .expand{padding-bottom:0.5em;}
+div#multiblockatoh a:link,
+div#multiblockatoh a:visited {border:1px dotted #ccc;border-width:0 0 1px;text-decoration:none;color:#268CCD;}
+div#multiblockatoh a:hover,
+div#multiblockatoh a:active,
+div#multiblockatoh a:focus {border-style:solid;background-color:#f0f0f0;outline:0 none;}
+div#multiblockatoh .expand a {display:block;padding:3px 5px;}
+div#multiblockatoh .expand a:link,
+div#multiblockatoh .expand a:visited {border-width:1px;background-image:url(../img/arrow-down.gif);background-repeat:no-repeat;background-position:98% 50%;}
+div#multiblockatoh .expand a:hover,
+div#multiblockatoh .expand a:active,
+div#multiblockatoh .expand a:focus {text-decoration:none;}
+div#multiblockatoh .expand a.open:link,
+div#multiblockatoh .expand a.open:visited {border-style:solid;background:#eee url(../img/arrow-up.gif) no-repeat 98% 50%;}
+div#multiblockatoh .collapse{margin:1em 0 1.5em 0;}
+/* util */
+div#multiblockatoh .icon {float:left;margin: 0 0.5em 0.5em 0;}
+div#multiblockatoh .red {color:red;font-weight:900;}
+div#multiblockatoh .green {color:green;font-weight:900;}
+div#multiblockatoh .small {font-size:0.8em;}
+div#multiblockatoh .underlined {text-decoration:underline;}
+div#multiblockatoh pre {font-family:Monaco,"Courier New",Courier,monospace;}
+/* examples */
+div#multiblockatoh pre.left {float:left;margin:0;}
+div#multiblockatoh img.example1,
+div#multiblockatoh img.example2,
+div#multiblockatoh img.example3 {padding-right:4em;float:right;}

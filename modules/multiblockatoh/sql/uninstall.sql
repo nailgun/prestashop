@@ -1,0 +1,8 @@
+SET NAMES 'utf8';
+
+START TRANSACTION;
+
+DROP TABLE IF EXISTS `PREFIX_mbatoh_block_lang`;
+DROP TABLE IF EXISTS `PREFIX_mbatoh_block`;
+
+COMMIT;
