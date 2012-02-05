@@ -1,0 +1,10 @@
+.addcopy-mid,
+.addcopy-foot {
+    height:1px;
+    overflow:hidden;
+    position:absolute;
+    width:1px;
+    margin: 5px 0 0 -1px;
+    line-height:0;
+    opacity: 0;
+}
