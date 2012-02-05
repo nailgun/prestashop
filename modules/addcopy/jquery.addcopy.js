@@ -1,12 +1,12 @@
 /**
-* @author Dmitry Bashkatov
-* @desc Adds a links to the copied text. Based on jquery.addtocopy by Falchenko Maxim aka be3.
-*       Requires rangy (http://code.google.com/p/rangy/).
-* @version 1.0
-* @example
-* $(document).addcopy();
-* @license free
-**/
+ * @author Dmitry Bashkatov
+ * @desc Adds a links to the copied text. Based on jquery.addtocopy by Falchenko Maxim aka be3.
+ *       Requires rangy (http://code.google.com/p/rangy/).
+ * @version 1.0
+ * @example
+ * $(document).addcopy();
+ * @license free
+ **/
 
 jQuery.fn.addcopy = function(opts) {
     var options = {
@@ -158,25 +158,6 @@ jQuery.fn.addcopy = function(opts) {
 
             /* MIDDLE */
             var bestAnchor = anchors[bestIndex];
-            /*
-            var node = bestAnchor[0];
-            var text = node.nodeValue;
-            var offset = bestAnchor[1];
-            var text1 = text.slice(0, offset);
-            var text2 = text.slice(offset);
-            var node1 = document.createTextNode(text1);
-            var node2 = document.createTextNode(text2);
-            $(node).before(node1);
-            $(node).before(createMiddle());
-            $(node).before(node2);
-            if (node == range.startContainer) {
-                range.setStart(node1, range.startOffset);
-            }
-            if (node == range.endContainer) {
-                range.setEnd(node2, range.endOffset-text1.length);
-            }
-            node.parentNode.removeChild(node);
-            */
             insertCopy(bestAnchor[0], bestAnchor[1], createMiddle());
         }
 

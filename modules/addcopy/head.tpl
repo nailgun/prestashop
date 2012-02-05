@@ -2,7 +2,7 @@
 $(function() {literal}{{/literal}
     $(document).addcopy({literal}{{/literal}
         middle: '<a href="http://{$domain}">http://{$domain}</a> ',
-        footer: '<br/>Источник: <a href="'+window.location.href+'">'+window.location.href+'</a>'
+        footer: null
     {literal}}{/literal});
 {literal}}{/literal});
 </script>
